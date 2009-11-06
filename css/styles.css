@@ -62,6 +62,10 @@ p {
 	font-size: 4em;
 }
 
+.success {
+    color: green;
+}
+
 #exactMatch, #manyMatches, #noMatch, #searchExplanation {
 	display:none;
 }
