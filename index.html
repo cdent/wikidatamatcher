@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>wiki-data matcher - basic fraud-protection for all</title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/styles.css" />
+		<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="js/iso-3166.js"></script>
+		<script type="text/javascript" src="js/dependentInputs.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="header" class="major">
+				<h1>wiki-data&nbsp;matcher</h1>
+				<span class="subtitle right">basic fraud-protection for all</span>
+			</div>
+			<div id="search" class="major curvedBox">
+				<form action="#" method="GET">
+					<div>
+						<label for="q">Company Name</label><input name="q" size="35" type="text" />
+					</div>
+					<input type="submit" style="display:none" />
+					<div id="advancedSearchContainer">
+						<div id="advancedSearchLines"></div>
+					</div>
+					<div id="searchButtons" class="right">
+						<a href="javascript:;" class="nounderline"><button onclick="return false;">+</button></a>
+						<a href="javascript:;">(add a filter)</a>
+						<input value="Search" type="submit" />
+					</div>
+				</form>
+			</div>
+			<div id="results" class="major">
+				<div id="exactMatch" class="curvedBox">
+					<span class="mark">&#10004;</span>
+					<span>This search has a unique match in wiki-data - </span><a href="javascript:;">#</a>
+				</div>
+				<div id="manyMatches" class="curvedBox">
+					<span class="mark">?</span>
+					<span>This search has several matches in wiki-data - see below</span>
+					<div id="matchesTable">
+						<table>
+							<thead>
+								<tr>
+									<th>AVID</th>
+									<th>Legal Name</th>
+									<th>Operational Address</th>
+									<th>% matched</th>
+								</tr>
+							</thead>
+							<tbody id="matchesTableBody">
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div id="noMatch" class="curvedBox">
+					<span class="mark">&#10006;</span>
+					<span>This search has NO matches in wiki-data - </span><a href="javascript:;">why?</a>
+					<div id="searchExplanation">
+						<p>The wiki-data matcher searches for an exact match using all the fields you specify in your search. If it fails to find a match, it searches again looking for matches against each field and then finds the common results.</p>
+						<p>During this second set of searches, all the following fields of a wiki-data record are examined:</p>
+						<ul>
+							<li>Legal Name</li>
+							<li>Previous Name(s)</li>
+							<li>Trades As Name(s)</li>
+							<li>Company Website</li>
+							<li>Operational PO Box</li>
+							<li>Operational Floor</li>
+							<li>Operational Building</li>
+							<li>Operational Street 1</li>
+							<li>Operational Street 2</li>
+							<li>Operational Street 3</li>
+							<li>Operational Postcode</li>
+						</ul>
+						<p>The following fields are NOT examined individually, as they would return too many results:</p>
+						<ul>
+							<li>Trading Status</li>
+							<li>Registered Country</li>
+							<li>Operational City</li>
+							<li>Operational State</li>
+							<li>Operational Country</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

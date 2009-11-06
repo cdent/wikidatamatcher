@@ -1,0 +1,67 @@
+body {
+	font-family: Helvetica, sans-serif;
+	font-size: 1.4em;
+	line-height: 1.2em;
+}
+
+h1 {
+	font-size: 4.5em;
+	line-height: 1em;
+}
+
+input, select, button {
+	font-size: 0.8em;
+}
+
+ul {
+	padding: 1em 2em;
+}
+
+p {
+	padding-top: 1em;
+}
+
+.major {
+	margin-bottom: 4em;
+}
+
+.right {
+	float: right;
+}
+
+#wrapper {
+	width: 80%;
+	margin: auto;
+}
+
+.curvedBox {
+	padding: 2em;
+	background-color: fuchsia;
+	-moz-border-radius:1em;
+	-webkit-border-radius:1em;
+	border-radius:1em;
+}
+
+#search label, #search select, #search input {
+	margin-right: 1.5em;
+}
+
+#advancedSearchContainer {
+	margin-bottom: 1em;
+}
+
+.advSearchLine {
+	margin-top: 1em;
+}
+
+.nounderline {
+	text-decoration: none;
+}
+
+.mark {
+	font-size: 4em;
+}
+
+#exactMatch, #manyMatches, #noMatch, #searchExplanation {
+	display:none;
+}

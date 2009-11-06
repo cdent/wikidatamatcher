@@ -1,0 +1,9 @@
+[submodule "AjaxReq"]
+	path = AjaxReq
+	url = git://github.com/jayfresh/AjaxReq.git
+[submodule "dependentInputs"]
+	path = dependentInputs
+	url = git://github.com/jayfresh/dependentInputs.git
+[submodule "ISO_3166"]
+	path = ISO_3166
+	url = git://github.com/jayfresh/ISO_3166.git
