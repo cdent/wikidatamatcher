@@ -1,5 +1,3 @@
-/* app.js */
-// override search links to use ajax_search as soon as possible
 function addAdvSearchLine() {
 	var container = '#advancedSearchContainer';
 	
@@ -26,8 +24,14 @@ $(document).ready(function() {
 	var processJSON = function(records) {
 		if(records.length===0) {
 			if(noResults) {
-				// construct a different set of queries, go get the data
-				// if there are still no results
+				/* construct a different set of queries, go get the data
+					for(var i in queryVars) {
+						// make a query
+						// aggregate the results
+						// make them unique
+						// pass them back into processJSON
+					}
+				 if there are still no results say so */
 			}
 		} else if(records.length===1) {
 			var title = records[0].title;
@@ -110,7 +114,6 @@ $(document).ready(function() {
 		}
 		return $container.show();
 	};
-	// make the form use the JSONP API
 	var $form = $('form');
 	$form.submit(function() {
 		$('#results > div').hide();
@@ -127,8 +130,6 @@ $(document).ready(function() {
 		$.getJSON(url, processJSON);
 		return false;
 	});
-
-	// set advanced search on a slider
 	$('#search a').click(function() {
 		addAdvSearchLine();
 	});
