@@ -36,7 +36,7 @@ p {
 
 .curvedBox {
 	padding: 2em;
-	background-color: fuchsia;
+	background-color: #a4d8df;
 	-moz-border-radius:1em;
 	-webkit-border-radius:1em;
 	border-radius:1em;
@@ -62,8 +62,16 @@ p {
 	font-size: 4em;
 }
 
-.success {
-    color: green;
+#exactMatch.mark {
+    color: lime;
+}
+
+#manyMatches.mark {
+	color: #ff7f00;
+}
+
+#noMatch.mark {
+	color: red;
 }
 
 #exactMatch, #manyMatches, #noMatch, #searchExplanation {

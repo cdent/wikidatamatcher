@@ -12,7 +12,11 @@ function addAdvSearchLine() {
 	return $row;
 }
 $(document).ready(function() {
-	var queryVars = {};
+	var url = "http://wiki-data.com/search.json?";
+	var queryVars = {
+		count:0,
+		vars:{}
+	};
 	var $container;
 	var noResults = function() {
 		$container = $('#noMatch');
@@ -21,17 +25,51 @@ $(document).ready(function() {
 		});
 		$container.show();
 	};
+	var secondRound;
+	var mergeUnique = function(to,from,by) {
+		var match;
+		for(var i=0;i<from.length;i++) {
+			match = false;
+			for(var j=0;j<to.length;j++) {
+				if(to[j][by]===from[i][by]) {
+					match = true;
+					break;
+				}
+			}
+			if(!match) {
+				to[i] = from[i];
+			}
+		}
+	};
 	var processJSON = function(records) {
 		if(records.length===0) {
-			if(noResults) {
-				/* construct a different set of queries, go get the data
-					for(var i in queryVars) {
-						// make a query
-						// aggregate the results
-						// make them unique
-						// pass them back into processJSON
+			if(!secondRound) {
+				secondRound = true;
+				var count = 0;
+				var secondRoundRecords = [];
+				// get an ordered list of queryVars to make sequential queries on
+				var vars = [];
+				for(var i in queryVars) {
+					vars.push(i);
+				}
+				var v;
+				var str = "";
+				var secondRoundCallback = function(records) {
+					count++;
+					mergeUnique(secondRoundRecords,records,"title");
+					if(count<vars.length) {
+						v = vars[count];
+						str = v+"="+queryVars[v]+"&jsonp_callback=?";
+						$.getJSON(url+str,secondRoundCallback);
+					} else {
+						processJSON(secondRoundRecords);
 					}
-				 if there are still no results say so */
+				};
+				v = vars[0];
+				str = v+"="+queryVars[v]+"&jsonp_callback=?";
+				$.getJSON(url, secondRoundCallback);
+			} else {
+				$('noMatches').show();
 			}
 		} else if(records.length===1) {
 			var title = records[0].title;
@@ -116,8 +154,10 @@ $(document).ready(function() {
 	};
 	var $form = $('form');
 	$form.submit(function() {
+		// reset any changes from a previous search
+		secondRound = false;
 		$('#results > div').hide();
-		var url = "http://wiki-data.com/search.json?";
+		// carry on with this search
 		var str = "";
 		$form.find(':input:not(:submit)').each(function() {
 			queryVars[$(this).attr('name')] = $(this).val();
@@ -126,8 +166,8 @@ $(document).ready(function() {
 			str += "&"+i+"="+queryVars[i];
 		}
 		str = str.substring(1);
-		url += str+"&jsonp_callback=?";
-		$.getJSON(url, processJSON);
+		str += str+"&jsonp_callback=?";
+		$.getJSON(url+str, processJSON);
 		return false;
 	});
 	$('#search a').click(function() {
