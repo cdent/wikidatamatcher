@@ -14,13 +14,21 @@ function addAdvSearchLine() {
 	return $row;
 }
 $(document).ready(function() {
+	var queryVars = {};
+	var $container;
+	var noResults = function() {
+		$container = $('#noMatch');
+		$container.find('a').click(function() {
+			$('#searchExplanation').show();
+		});
+		$container.show();
+	};
 	var processJSON = function(records) {
-		var $container;
 		if(records.length===0) {
-			$container = $('#noMatch');
-			$container.find('a').click(function() {
-				$('#searchExplanation').show();
-			});
+			if(noResults) {
+				// construct a different set of queries, go get the data
+				// if there are still no results
+			}
 		} else if(records.length===1) {
 			var title = records[0].title;
 			$container = $('#exactMatch');
@@ -30,37 +38,74 @@ $(document).ready(function() {
 			}).text(title);
 		} else {
 			$container = $('#manyMatches');
-			var $tbody = $('#matchesTableBody');
 			var address = function(fields) {
 				var adr = "";
 				var adrFields = [
-					"fields.operational_po_box",
-					"fields.operational_floor",
-					"fields.operational_building",
-					"fields.operational_street_1",
-					"fields.operational_street_2",
-					"fields.operational_street_3",
-					"fields.operational_city",
-					"fields.operational_state",
-					"fields.operational_city",
-					"fields.operational_country",
-					"fields.operational_postcode"
+					"operational_po_box",
+					"operational_floor",
+					"operational_building",
+					"operational_street_1",
+					"operational_street_2",
+					"operational_street_3",
+					"operational_city",
+					"operational_state",
+					"operational_city",
+					"operational_country",
+					"operational_postcode"
 				];
+				var field;
 				for(var i=0;i<adrFields.length;i++) {
-					adr += fields[adrFields[i]];
+					field = fields[adrFields[i]];
+					if(field) {
+						adr += field + ", ";
+					}
 				}
 				return adr;
 			};
-			var percentMatch = function() {
-				// JRL: need to do this function
-				return "50%";
+			var percentMatch = function(record) {
+				var perc = 0;
+				var maxMatches = 0;
+				var matches = 0;
+				var field, val;
+				var nameFields = [
+					"legal_name",
+					"trades_as_name_s_",
+					"previous_name_s_"
+				];
+				val = queryVars.q.toLowerCase();
+				var nameField;
+				var fields = record.fields;
+				for(var i=0;i<nameFields.length;i++) {
+					nameField = nameFields[i];
+					if(fields[nameField].toLowerCase().indexOf(val)!==-1) {
+						matches++;
+						break;
+					}
+				}
+				maxMatches++;
+				for(var i in queryVars) {
+					if(i.match(/adv_\d{1,2}_field/)) {
+						field = queryVars[i].toLowerCase().replace(/ |\(|\)/g,"_");
+						val = queryVars[i.replace('_field', '_value')].toLowerCase();
+						if(val && fields[field]) {
+							if(fields[field].toLowerCase().indexOf(val)!==-1) {
+								matches++;
+							}
+							maxMatches++;
+						}
+					}
+				}
+				perc = Math.floor((matches / maxMatches)*100);
+				return perc+"%";
 			};
 			var rowify = function(record) {
 				var fields = record.fields;
-				"<td>"+fields.avid+"</td><td>"+fields.legal_name+"</td><td>"+address(fields)+"</td><td>"+percentMatch();
+				var row = "<tr><td>"+record.title+"</td><td>"+fields.legal_name+"</td><td>"+address(fields)+"</td><td>"+percentMatch(record)+"</td></tr>";
+				return row;
 			};
+			var $tbody = $('#matchesTableBody').html("");
 			$(records).each(function() {
-				""
+				$tbody.append($(rowify(this)));
 			});
 		}
 		return $container.show();
@@ -68,12 +113,15 @@ $(document).ready(function() {
 	// make the form use the JSONP API
 	var $form = $('form');
 	$form.submit(function() {
-		$('#results div:visible').hide();
+		$('#results > div').hide();
 		var url = "http://wiki-data.com/search.json?";
 		var str = "";
 		$form.find(':input:not(:submit)').each(function() {
-			str += "&"+$(this).attr('name')+"="+$(this).val();
+			queryVars[$(this).attr('name')] = $(this).val();
 		});
+		for(var i in queryVars) {
+			str += "&"+i+"="+queryVars[i];
+		}
 		str = str.substring(1);
 		url += str+"&jsonp_callback=?";
 		$.getJSON(url, processJSON);

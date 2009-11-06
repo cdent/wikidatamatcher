@@ -65,3 +65,7 @@ p {
 #exactMatch, #manyMatches, #noMatch, #searchExplanation {
 	display:none;
 }
+
+#matchesTable {
+	margin-top:2em;
+}
