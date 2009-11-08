@@ -54,11 +54,15 @@
 						</table>
 					</div>
 				</div>
-				<div id="noMatch" class="curvedBox">
+				<div id="noMatchRoundOne" class="curvedBox">
+					<span class="mark">?</span>
+					<span>There are no exact matches in wiki-data - I'm just checking for partial matches</span>
+				</div>
+				<div id="noMatchRoundTwo" class="curvedBox">
 					<span class="mark">&#10006;</span>
 					<span>This search has NO matches in wiki-data - </span><a href="javascript:;">why?</a>
 					<div id="searchExplanation">
-						<p>The wiki-data matcher searches for an exact match using all the fields you specify in your search. If it fails to find a match, it searches again looking for matches against each field and then finds the common results.</p>
+						<p>The wiki-data matcher searches for an exact match using all the fields you specify in your search. If it fails to find a match, it searches again looking for matches against each field, along with the Company Name field, and then finds the common results.</p>
 						<p>During this second set of searches, all the following fields of a wiki-data record are examined:</p>
 						<ul>
 							<li>Legal Name</li>

@@ -9,6 +9,14 @@ h1 {
 	line-height: 1em;
 }
 
+a, a:visited, a:active {
+	color: #E9D558;
+}
+
+a:hover {
+	color: #FFAB07;
+}
+
 input, select, button {
 	font-size: 0.8em;
 }
@@ -36,10 +44,15 @@ p {
 
 .curvedBox {
 	padding: 2em;
-	background-color: #a4d8df;
+	background-color: #434D53;
 	-moz-border-radius:1em;
 	-webkit-border-radius:1em;
 	border-radius:1em;
+	color: #72AD75;
+}
+
+.curvedBox {
+	
 }
 
 #search label, #search select, #search input {
@@ -70,11 +83,11 @@ p {
 	color: #ff7f00;
 }
 
-#noMatch.mark {
+#noMatchRoundTwo.mark {
 	color: red;
 }
 
-#exactMatch, #manyMatches, #noMatch, #searchExplanation {
+#exactMatch, #manyMatches, #noMatchRoundOne, #noMatchRoundTwo, #searchExplanation {
 	display:none;
 }
 
