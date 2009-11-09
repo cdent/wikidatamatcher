@@ -13,7 +13,7 @@ function addAdvSearchLine() {
 }
 $(document).ready(function() {
 	var url = "http://wiki-data.com/search.json?";
-	var queryVars = {};
+	var queryVars;
 	var $container;
 	var secondRound;
 	var mergeUnique = function(to,from,by) {
@@ -27,11 +27,12 @@ $(document).ready(function() {
 				}
 			}
 			if(!match) {
-				to[i] = from[i];
+				to.push(from[i]);
 			}
 		}
 	};
 	var processJSON = function(records) {
+		$('#searchDescContents').append("<span>"+records.length+" results</span><br />");
 		if(records.length===0) {
 			// get an ordered list of queryVars to make sequential queries on, along with "q"
 			var vars = [];
@@ -47,7 +48,6 @@ $(document).ready(function() {
 					vars.push(i);
 				}
 			}
-			console.log(vars);
 			if(!secondRound && vars.length>1) {
 				secondRound = true;
 				var count = 0;
@@ -55,24 +55,24 @@ $(document).ready(function() {
 				var v;
 				var str = "";
 				var secondRoundCallback = function(records) {
+					$('#searchDescContents').append("<span>"+records.length+" results</span><br />");
 					count++;
-					console.log("unmerged:",secondRoundRecords,records);
 					mergeUnique(secondRoundRecords,records,"title");
-					console.log("merged:",secondRoundRecords,records);
-					console.log(count,vars.length);
 					if(count<vars.length) {
 						v = vars[count];
-						str = "q="+queryVars.q+"&"+v+"="+queryVars[v]+"&jsonp_callback=?";
-						console.log('going to get:',url+str);
+						str = "q="+queryVars.q+"&"+v+"="+queryVars[v];
+						$('#searchDescContents').append("<span>"+str+": </span>");
+						str += "&jsonp_callback=?";
 						$.getJSON(url+str,secondRoundCallback);
 					} else {
-						console.log('done with second round',secondRoundRecords);
 						processJSON(secondRoundRecords);
 					}
 				};
 				v = vars[0];
-				str = "q="+queryVars.q+"&"+v+"="+queryVars[v]+"&jsonp_callback=?";
-				console.log(url+str);
+				str = "q="+queryVars.q+"&"+v+"="+queryVars[v];
+				$('#searchDescContents').append("<br /><span>Searching for fuzzy matches:</span><br />");
+				$('#searchDescContents').append("<span>"+str+": </span>");
+				str += "&jsonp_callback=?";
 				$.getJSON(url+str, secondRoundCallback);
 				$container = $('#noMatchRoundOne');
 			} else {
@@ -153,7 +153,7 @@ $(document).ready(function() {
 			};
 			var rowify = function(record) {
 				var fields = record.fields;
-				var row = "<tr><td>"+record.title+"</td><td>"+fields.legal_name+"</td><td>"+address(fields)+"</td><td>"+percentMatch(record)+"</td></tr>";
+				var row = "<tr><td><a href='http://wiki-data.com/bags/avox/tiddlers/"+record.title+".html'>"+record.title+"</a></td><td>"+fields.legal_name+"</td><td>"+address(fields)+"</td><td>"+percentMatch(record)+"</td></tr>";
 				return row;
 			};
 			var $tbody = $('#matchesTableBody').html("");
@@ -167,7 +167,9 @@ $(document).ready(function() {
 	$form.submit(function() {
 		// reset any changes from a previous search
 		secondRound = false;
+		queryVars = {};
 		$('#results > div').hide();
+		$('#searchDescContents').empty();
 		// carry on with this search
 		var str = "";
 		var inputVars = {};
@@ -188,7 +190,9 @@ $(document).ready(function() {
 			str += "&"+i+"="+queryVars[i];
 		}
 		str = str.substring(1);
-		str += str+"&jsonp_callback=?";
+		$('#searchDesc').show();
+		$('#searchDescContents').append("<span>"+str+": </span>");
+		str += "&jsonp_callback=?";
 		$.getJSON(url+str, processJSON);
 		return false;
 	});

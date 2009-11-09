@@ -30,7 +30,7 @@ p {
 }
 
 .major {
-	margin-bottom: 4em;
+	margin-bottom: 2.5em;
 }
 
 .right {
@@ -87,10 +87,21 @@ p {
 	color: red;
 }
 
-#exactMatch, #manyMatches, #noMatchRoundOne, #noMatchRoundTwo, #searchExplanation {
+#searchDesc, #exactMatch, #manyMatches, #noMatchRoundOne, #noMatchRoundTwo, #searchExplanation {
 	display:none;
 }
 
 #matchesTable {
 	margin-top:2em;
+	background-color: #72AD75;
+	color: #434D53;
+	text-align: left;
+	font-size: 0.75em;
+}
+#matchesTable td, #matchesTable th {
+	padding: 0.25em 0.5em;
+}
+#matchesTable th {
+	border-bottom: 1px solid #0E8D94;
+	padding-bottom: 0.125em;
 }

@@ -26,12 +26,16 @@
 					</div>
 					<div id="searchButtons" class="right">
 						<a href="javascript:;" class="nounderline"><button onclick="return false;">+</button></a>
-						<a href="javascript:;">(add a filter)</a>
+						<a href="javascript:;">add more fields</a>
 						<input value="Search" type="submit" />
 					</div>
 				</form>
 			</div>
 			<div id="results" class="major">
+				<div id="searchDesc" class="major curvedBox">
+					<span>You searched for:</span>
+					<div id="searchDescContents"></div>
+				</div>
 				<div id="exactMatch" class="curvedBox">
 					<span class="mark">&#10004;</span>
 					<span>This search has a unique match in wiki-data - </span><a href="javascript:;">#</a>
@@ -46,7 +50,7 @@
 									<th>AVID</th>
 									<th>Legal Name</th>
 									<th>Operational Address</th>
-									<th>% matched</th>
+									<th>%&nbsp;matched</th>
 								</tr>
 							</thead>
 							<tbody id="matchesTableBody">
