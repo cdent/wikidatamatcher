@@ -13,6 +13,9 @@ function addAdvSearchLine() {
 }
 $(document).ready(function() {
 	var url = "http://wiki-data.com/search.json?";
+	$('a.why').click(function() {
+		$('#searchExplanation').toggle();
+	});
 	var queryVars;
 	var $container;
 	var secondRound;
@@ -80,9 +83,6 @@ $(document).ready(function() {
 					$container.hide();
 				}
 				$container = $('#noMatchRoundTwo');
-				$container.find('a').click(function() {
-					$('#searchExplanation').show();
-				});
 			}
 		} else if(records.length===1) {
 			var title = records[0].title;
@@ -196,7 +196,7 @@ $(document).ready(function() {
 		$.getJSON(url+str, processJSON);
 		return false;
 	});
-	$('#search a').click(function() {
+	$('#searchButtons a').click(function() {
 		addAdvSearchLine();
 	});
 });

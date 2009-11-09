@@ -27,7 +27,10 @@
 					<div id="searchButtons" class="right">
 						<a href="javascript:;" class="nounderline"><button onclick="return false;">+</button></a>
 						<a href="javascript:;">add more fields</a>
-						<input value="Search" type="submit" />
+						<input value="Search" type="submit" class="submit" />
+					</div>
+					<div id="help">
+						<a href="javascript:;" class="why">?</a>
 					</div>
 				</form>
 			</div>
@@ -64,32 +67,38 @@
 				</div>
 				<div id="noMatchRoundTwo" class="curvedBox">
 					<span class="mark">&#10006;</span>
-					<span>This search has NO matches in wiki-data - </span><a href="javascript:;">why?</a>
-					<div id="searchExplanation">
-						<p>The wiki-data matcher searches for an exact match using all the fields you specify in your search. If it fails to find a match, it searches again looking for matches against each field, along with the Company Name field, and then finds the common results.</p>
-						<p>During this second set of searches, all the following fields of a wiki-data record are examined:</p>
-						<ul>
-							<li>Legal Name</li>
-							<li>Previous Name(s)</li>
-							<li>Trades As Name(s)</li>
-							<li>Company Website</li>
-							<li>Operational PO Box</li>
-							<li>Operational Floor</li>
-							<li>Operational Building</li>
-							<li>Operational Street 1</li>
-							<li>Operational Street 2</li>
-							<li>Operational Street 3</li>
-							<li>Operational Postcode</li>
-						</ul>
-						<p>The following fields are NOT examined individually, as they would return too many results:</p>
-						<ul>
-							<li>Trading Status</li>
-							<li>Registered Country</li>
-							<li>Operational City</li>
-							<li>Operational State</li>
-							<li>Operational Country</li>
-						</ul>
-					</div>
+					<span>This search has NO matches in wiki-data - </span><a href="javascript:;" class="why">why?</a>
+				</div>
+				<div id="searchExplanation">
+					<p>The wiki-data matcher searches for an exact match using all the fields you specify in your search. The "Company Name" query matches against:</p>
+					<ul>
+						<li>Legal Name</li>
+						<li>Previous Name(s)</li>
+						<li>Trades As Name(s)</li>
+					</ul>
+					<p>If the exact search fails to find a match, it searches again looking for matches against each field, along with the Company Name field, and then finds the common results.</p>
+					<p>During this second set of searches, all the following fields of a wiki-data record are examined:</p>
+					<ul>
+						<li>Legal Name</li>
+						<li>Previous Name(s)</li>
+						<li>Trades As Name(s)</li>
+						<li>Company Website</li>
+						<li>Operational PO Box</li>
+						<li>Operational Floor</li>
+						<li>Operational Building</li>
+						<li>Operational Street 1</li>
+						<li>Operational Street 2</li>
+						<li>Operational Street 3</li>
+						<li>Operational Postcode</li>
+					</ul>
+					<p>The following fields are NOT examined individually, as they would return too many results:</p>
+					<ul>
+						<li>Trading Status</li>
+						<li>Registered Country</li>
+						<li>Operational City</li>
+						<li>Operational State</li>
+						<li>Operational Country</li>
+					</ul>
 				</div>
 			</div>
 		</div>

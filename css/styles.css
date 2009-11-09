@@ -51,12 +51,22 @@ p {
 	color: #72AD75;
 }
 
-.curvedBox {
-	
-}
-
 #search label, #search select, #search input {
 	margin-right: 1.5em;
+}
+#search .submit {
+	margin-right: 0.75em;
+}
+#help {
+	float:left;
+	position: relative;
+}
+#help a {
+	color: #FFAB07;
+	text-decoration: none;
+}
+#help a:hover {
+	border-bottom: 1px dotted #FFAB07;
 }
 
 #advancedSearchContainer {
