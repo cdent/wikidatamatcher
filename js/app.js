@@ -47,7 +47,7 @@ $(document).ready(function() {
 				"operational_country"
 			];
 			for(var i in queryVars) {
-				if(i!=="q" && jQuery.inArray(i,notForSearch)===-1) {
+				if(i!=="q") {
 					vars.push(i);
 				}
 			}
@@ -64,9 +64,13 @@ $(document).ready(function() {
 					if(count<vars.length) {
 						v = vars[count];
 						str = "q="+queryVars.q+"&"+v+"="+queryVars[v];
-						$('#searchDescContents').append("<span>"+str+": </span>");
-						str += "&jsonp_callback=?";
-						$.getJSON(url+str,secondRoundCallback);
+						if(jQuery.inArray(v,notForSearch)!==-1) {
+							$('#searchDescContents').append("<span>not searched (too many potential matches): "+str+"</span><br />");	
+						} else {
+							$('#searchDescContents').append("<span>searching: "+str+": </span>");
+							str += "&jsonp_callback=?";
+							$.getJSON(url+str,secondRoundCallback);
+						}
 					} else {
 						processJSON(secondRoundRecords);
 					}
