@@ -58,6 +58,7 @@ $(document).ready(function() {
 				var v;
 				var str = "";
 				var secondRoundCallback = function(records) {
+					$('noMatchRoundOne').hide();
 					$('#searchDescContents').append("<span>"+records.length+" results</span><br />");
 					count++;
 					mergeUnique(secondRoundRecords,records,"title");
@@ -67,7 +68,7 @@ $(document).ready(function() {
 						if(jQuery.inArray(v,notForSearch)!==-1) {
 							$('#searchDescContents').append("<span>not searched (too many potential matches): "+str+"</span><br />");	
 						} else {
-							$('#searchDescContents').append("<span>searching: "+str+": </span>");
+							$('#searchDescContents').append("<span>searching: q="+queryVars.q+" AND "+v+"="+queryVars[v]+": </span>");
 							str += "&jsonp_callback=?";
 							$.getJSON(url+str,secondRoundCallback);
 						}
@@ -78,14 +79,11 @@ $(document).ready(function() {
 				v = vars[0];
 				str = "q="+queryVars.q+"&"+v+"="+queryVars[v];
 				$('#searchDescContents').append("<br /><span>Searching for fuzzy matches:</span><br />");
-				$('#searchDescContents').append("<span>"+str+": </span>");
+				$('#searchDescContents').append("<span>searching: q="+queryVars.q+" AND "+v+"="+queryVars[v]+": </span>");
 				str += "&jsonp_callback=?";
 				$.getJSON(url+str, secondRoundCallback);
 				$container = $('#noMatchRoundOne');
 			} else {
-				if($container) {
-					$container.hide();
-				}
 				$container = $('#noMatchRoundTwo');
 			}
 		} else if(records.length===1) {
