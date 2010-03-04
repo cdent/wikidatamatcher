@@ -12,7 +12,7 @@ function addAdvSearchLine() {
 	return $row;
 }
 $(document).ready(function() {
-	var url = "http://wiki-data.com/search.json?";
+	var url = "http://test.wiki-data.com/search.json?";
 	$('a.why').click(function() {
 		$('#searchExplanation').toggle();
 	});
@@ -90,7 +90,7 @@ $(document).ready(function() {
 			var title = records[0].title;
 			$container = $('#exactMatch');
 			$container.find('a').attr({
-				href: "http://wiki-data.com/bags/avox/tiddlers/"+title+".html",
+				href: "http://test.wiki-data.com/bags/avox/tiddlers/"+title+".html",
 				target: "_blank"
 			}).text(title);
 		} else {
@@ -155,7 +155,7 @@ $(document).ready(function() {
 			};
 			var rowify = function(record) {
 				var fields = record.fields;
-				var row = "<tr><td><a href='http://wiki-data.com/bags/avox/tiddlers/"+record.title+".html'>"+record.title+"</a></td><td>"+fields.legal_name+"</td><td>"+address(fields)+"</td><td>"+percentMatch(record)+"</td></tr>";
+				var row = "<tr><td><a href='http://test.wiki-data.com/bags/avox/tiddlers/"+record.title+".html'>"+record.title+"</a></td><td>"+fields.legal_name+"</td><td>"+address(fields)+"</td><td>"+percentMatch(record)+"</td></tr>";
 				return row;
 			};
 			var $tbody = $('#matchesTableBody').html("");
